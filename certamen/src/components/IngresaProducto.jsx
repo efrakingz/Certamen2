@@ -1,54 +1,76 @@
 import { Panel } from 'primereact/panel'
 import React, { useState } from 'react'
 import {SelectButton} from 'primereact/selectbutton';
+import { InputNumber } from 'primereact/InputNumber';
 import { InputText } from 'primereact/inputtext';
-import { Knob } from 'primereact/knob';
+import { ListBox } from 'primereact/listbox';
 import { Button } from 'primereact/button';
 import {Dropdown} from 'primereact/dropdown';
 
 //TODO: Para validar props se tienda a utilizar PropTypes
 
-function IngresaProducto({rangos=[], onCreateProducto=(producto)=>{}}) {
-    const [nombre, setNombre] = useState("");
-    const tiposProducto = ["Agua", "Panaderia"];
-    const [tipo, setTipo] = useState(tiposProducto[0]);
-    const [nivel, setNivel] = useState(1);
-    const [rangoSel, setRangoSel] = useState(rangos[0])
-   
-    const handleClick = ()=>{
+function IngresaProducto({onCreateProducto=(producto)=>{}}) {
+    
+    const dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes']; 
+    const [dia, setDia] = useState(null);
 
-        const producto = {nombre: nombre,tipo:tipo,nivel:nivel, rango: rangoSel};
+    const tipoPago = ['Efectivo', 'Tarjeta'];
+    const [tipoPagos, setTipoPago] = useState(tipoPago[0]);
+    const peliculas = [
+        { label: 'Wifi Ralph', value: 'Wifi Ralph' },
+        { label: 'Dragon Ball Super Broly', value: 'Dragon Ball Super Broly' },
+        { label: 'Cascanueces', value: 'Cascanueces' },
+        { label: 'El Grinch', value: 'El Grinch' }
+    ];  
+    const [pelicula, setPelicula] = useState(peliculas);
+    const [cantidad, setCantidad] = useState(1);
+    const [ciudad, setCiudad] = useState('');
+  
+    
+
+const handleClick = () => {
+        const producto = {
+            dia: dia,
+            tipoPago: tipoPagos,
+            pelicula: pelicula,
+            cantidad: cantidad,
+            ciudad: ciudad
+        };
         onCreateProducto(producto);
-    }
+    };
+
+    
 
     return (
-        <Panel header="Ingresar Producto">
-            <div className="mb-3 d-flex flex-column ">
-                <label htmlFor="nombre-producto-txt">Nombre</label>
-                <InputText id="nombre-producto-txt"
-                    value={nombre}
-                    onChange={(e) => setNombre(e.target.value)}
-                    aria-describedby="nombre-producto-help" />
+        <Panel header="Comprar Entrada">
+            <div className="mb-3 d-flex flex-column">
+                <label htmlFor="dia-select">Día</label>
+                <Dropdown id="dia-select"options={dias} onChange={(e) => setDia(e.value)} value={dia}  placeholder="Seleccione un día" />
             </div>
-            <div className="mb-3 d-flex flex-row justify-content-between">
-                    <label htmlFor="tipo-producto-select">Tipo de Producto</label>
-                    <SelectButton id='tipo-producto-select' options={tiposProducto} value={tipo} onChange={e=>setTipo(e.value)} ></SelectButton>
-            </div>
-            <div className="mb-3 d-flex flex-row justify-content-between">
-                <label htmlFor="nivel-knob">cantidad</label>
-                <Knob id='nivel-knob' value={nivel} min={1} max={20} onChange={e=>setNivel(e.value)} ></Knob>
+        
+            <div className="mb-3 d-flex flex-column">
+                <label htmlFor="tipo-pago-select">Tipo de Pago</label>
+                <SelectButton id="tipo-pago-select" options={tipoPago} onChange={(e) => setTipoPago(e.value)}value={tipoPagos} />
             </div>
             <div className="mb-3 d-flex flex-column">
-                 <label htmlFor="rango-producto-select">Categoria</label>
-                 <Dropdown id="rango-producto-select" value={rangoSel} onChange={e=>{setRangoSel(e.value)}} options={rangos} optionLabel="nombre" 
-                    placeholder="Seleccione un Rango" checkmark={true} highlightOnSelect={false} />
-      
+                <label htmlFor="cantidadEntra-input">Cantidad de Entradas</label>
+                <InputNumber id="cantidadEntra-input" value={cantidad} onChange={(e) => setCantidad(e.value)} min={1} />
+            </div>
+
+            <div className="mb-3 d-flex flex-column">
+                <label htmlFor="ciudad-input">Ciudad</label>
+<InputText id="ciudad-input" value={ciudad} onChange={(e) => setCiudad(e.target.value)} placeholder="Ingrese la ciudad" />
+
+            </div><div className="mb-3 d-flex flex-column">
+                <label htmlFor="pelicula-list">Película</label>
+                <ListBox id="pelicula-list"  options={peliculas} onChange={(e) => setPelicula(e.value)} value={pelicula} />
             </div>
             <div className="mb-3 d-flex flex-column">
-                <Button label='Registrar' severity='info' onClick={handleClick} rounded></Button>
+                <Button label="Comprar" severity="success" rounded onClick={handleClick}  />
             </div>
         </Panel>
-    )
+    );
+
 }
 
 export default IngresaProducto

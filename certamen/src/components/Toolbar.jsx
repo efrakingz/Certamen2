@@ -6,7 +6,7 @@ function ToolbarHeader() {
     return (
         <div className="row">
             <Toolbar start={<Image width='60px' src={icono} />}
-                end={<h3>Prefiero angular 100 veces❤
+                end={<h3> Sansamark 
                 </h3>}>
             </Toolbar>
         </div>
