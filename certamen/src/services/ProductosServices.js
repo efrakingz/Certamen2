@@ -23,7 +23,7 @@ const deleteAllProductos = () => {
 }
 
 const removeProductos = (producto)=>{
-    const productos = getGProductos();
+    const productos = getProductos();
     const lista = productos.filter(g=> g.nombre != producto.nombre)
     localStorage.setItem(localKey, JSON.stringify(lista));
 }

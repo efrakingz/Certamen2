@@ -30,15 +30,15 @@ const ContainerPrincipal = () => {
 
         createProductos(producto);
         setProductos(getProductos());
-        toast.current.show({severity: "info", summary: "Guerrero registrado", sticky: true});
+        toast.current.show({severity: "info", summary: "Producto registrado", sticky: true});
     }
 
 
     const handleGuerreroRemove = (producto)=>{
        
-       removeProductos(guerrero);
+       removeProductos(producto);
        setProductos(getProductos());
-       toast.current.show({severity:"warn", summary: "Guerrero eliminado", sticky: true});
+       toast.current.show({severity:"warn", summary: "Producto eliminado", sticky: true});
     }
 
     const handleRangoCreate = (rango)=>{
@@ -70,7 +70,7 @@ const ContainerPrincipal = () => {
                             <IngresaProducto onCreateProducto={handleProductoCreate}  rangos={rangos} />
                         </div>
                         <div className="col col-md-8">
-                            <TablaProducto productos={productos} onRemoveGuerrero={handleGuerreroRemove} />
+                            <TablaProducto productos={productos} onRemoveProducto={handleGuerreroRemove} />
                         </div>
                     </div> : <EmptyState title='No hay Rangos' contenido={"Debe registrar rangos para generar productos"}></EmptyState>
                     }

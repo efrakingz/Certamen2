@@ -4,10 +4,10 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
         
-function TablaProducto({productos, onRemoveGuerrero}) {
+function TablaProducto({productos, onRemoveProducto}) {
 
     const BorrarProducto = (producto)=>{
-        onRemoveGuerrero(producto);
+        onRemoveProducto(producto);
     }
 
     const accionesTemplate = (producto)=>{
